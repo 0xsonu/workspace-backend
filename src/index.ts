@@ -6,6 +6,8 @@ import { config } from "./config/appConfig";
 import authRoutes from "./routes/authRoutes";
 import connectDatabase from "./config/databaseConfig";
 import "./config/passportConfig";
+import userRoutes from "./routes/userRoutes";
+import isAuthenticated from "./middlewares/isAuhenticatedMiddleware";
 
 const app = express();
 const BASE_PATH = config.BASE_PATH;
@@ -33,6 +35,7 @@ app.use(
 );
 
 app.use(`${BASE_PATH}/auth`, authRoutes);
+app.use(`${BASE_PATH}/user`, isAuthenticated, userRoutes);
 
 app.listen(config.PORT, async () => {
   console.log(`Server listening on port ${config.PORT} in ${config.NODE_ENV}`);

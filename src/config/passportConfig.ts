@@ -54,6 +54,7 @@ passport.use(
     async (email, password, done) => {
       try {
         const user = await verifyUserService({ email, password });
+        console.log("Injecting user to ", user);
         return done(null, user);
       } catch (error: any) {
         return done(error, false, { message: error?.message });
